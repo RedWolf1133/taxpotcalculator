@@ -74,12 +74,19 @@ st.markdown(
     }
     /* Tighter expense spacing */
     .expense-row {
-        margin-bottom: 6px !important;
-        padding-bottom: 6px !important;
-        border-bottom: 1px solid #E2E8F0 !important;
+        margin-bottom: 4px !important;
+        padding-bottom: 4px !important;
+        border-bottom: 1px solid #E5E7EB !important;
     }
     .expense-row:last-child {
         border-bottom: none !important;
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    .expense-row .description {
+        font-size: 0.85em;
+        color: #64748B;
+        margin-top: 2px;
     }
     </style>
     """,
@@ -157,7 +164,7 @@ with col1:
             st.session_state.expenses.append({
                 "Amount": exp_amount,
                 "Category": exp_category,
-                "Description": exp_description if exp_description else "-"
+                "Description": exp_description if exp_description else ""
             })
             st.success(f"Added £{exp_amount:.2f} - {exp_category}")
             st.rerun()
@@ -218,9 +225,13 @@ with col2:
         for i, expense in enumerate(st.session_state.expenses):
             cols = st.columns([5, 1, 0.4])
             with cols[0]:
+                desc = expense['Description']
+                if desc:
+                    content = f"**£{expense['Amount']:.2f}** – {expense['Category']} <span class='description'>{desc}</span>"
+                else:
+                    content = f"**£{expense['Amount']:.2f}** – {expense['Category']}"
                 st.markdown(
-                    f"<div class='expense-row'>**£{expense['Amount']:.2f}** – {expense['Category']}"
-                    f"{f'<br><small>{expense['Description']}</small>' if expense['Description'] != '-' else ''}</div>",
+                    f"<div class='expense-row'>{content}</div>",
                     unsafe_allow_html=True
                 )
             with cols[2]:
