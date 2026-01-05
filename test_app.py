@@ -6,7 +6,7 @@ import io
 # PAGE CONFIG & PROFESSIONAL THEMING
 # ==============================================
 st.set_page_config(
-    page_title="TaxPot Tracker",
+    page_title="Taxiva",
     page_icon="💰",
     layout="wide"
 )
@@ -102,7 +102,7 @@ st.markdown(
 st.markdown(
     """
     <div style='text-align: center; padding: 30px 0 20px;'>
-        <h1 style='color: #2E7D32; margin: 0; font-size: 2.8em;'>TaxPot Tracker</h1>
+        <h1 style='color: #2E7D32; margin: 0; font-size: 2.8em;'>Taxiva</h1>
         <p style='color: #64748B; font-size: 1.3em; margin: 10px 0 0;'>
             Easy tax set-aside tool for UK freelancers & sole traders
         </p>
@@ -177,7 +177,7 @@ with col1:
 with col2:
     st.subheader("Summary & Tax Pot")
 
-    # Tax rate slider (moved to main area for better visibility)
+    # Tax rate slider
     tax_rate = st.slider(
         "Suggested tax set-aside %",
         min_value=10,
@@ -258,6 +258,6 @@ with col2:
 # ==============================================
 st.markdown("---")
 st.caption(
-    "TaxPot Tracker MVP — Estimates only. Not official financial or tax advice. "
+    "Taxiva MVP — Estimates only. Not official financial or tax advice. "
     "Always check with HMRC or your accountant. Built by a UK accountant student."
 )
