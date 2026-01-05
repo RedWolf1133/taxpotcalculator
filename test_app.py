@@ -3,6 +3,16 @@ import pandas as pd
 
 st.markdown(
     """
+    <div style='text-align: center; padding: 20px 0;'>
+        <h1 style='color: #2E7D32; margin: 0;'>TaxPot Tracker</h1>
+        <p style='color: #64748B; font-size: 1.1em;'>Easy tax set-aside for UK freelancers & sole traders</p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    """
     <style>
     /* Main app background & text */
     .stApp { background-color: #F8FAFC !important; color: #0F172A !important; }
@@ -111,3 +121,4 @@ with col2:
 st.markdown("---")
 
 st.caption("This is a basic MVP tool — estimates only. Not official financial/tax advice. Always check with HMRC or your accountant.")
+
