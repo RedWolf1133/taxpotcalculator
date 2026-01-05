@@ -43,11 +43,11 @@ st.markdown(
         background-color: #c62828 !important;
         color: white !important;
         border-radius: 50% !important;
-        width: 32px !important;
-        height: 32px !important;
+        width: 30px !important;
+        height: 30px !important;
         padding: 0 !important;
         font-size: 1.3em !important;
-        line-height: 32px !important;
+        line-height: 30px !important;
         border: none !important;
         box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important;
         cursor: pointer !important;
@@ -72,11 +72,14 @@ st.markdown(
         padding: 10px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
-    /* Tighter expense spacing */
+    /* Extremely tight expense spacing */
     .expense-row {
-        margin-bottom: 4px !important;
-        padding-bottom: 4px !important;
+        margin: 2px 0 !important;
+        padding: 2px 0 !important;
         border-bottom: 1px solid #E5E7EB !important;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
     .expense-row:last-child {
         border-bottom: none !important;
@@ -86,7 +89,7 @@ st.markdown(
     .expense-row .description {
         font-size: 0.85em;
         color: #64748B;
-        margin-top: 2px;
+        margin-left: 8px;
     }
     </style>
     """,
@@ -120,15 +123,6 @@ if 'receipts' not in st.session_state:
 
 with st.sidebar:
     st.markdown("### Settings")
-    tax_rate = st.slider(
-        "Suggested tax set-aside %",
-        min_value=10,
-        max_value=50,
-        value=25,
-        step=5,
-        help="Percentage of your net profit (after expenses) to set aside for tax"
-    )
-    st.markdown("---")
     if st.button("Clear All Data"):
         st.session_state.expenses = []
         st.session_state.receipts = []
@@ -182,6 +176,16 @@ with col1:
 
 with col2:
     st.subheader("Summary & Tax Pot")
+
+    # Tax rate slider (moved to main area for better visibility)
+    tax_rate = st.slider(
+        "Suggested tax set-aside %",
+        min_value=10,
+        max_value=50,
+        value=25,
+        step=5,
+        help="Percentage of your net profit (after expenses) to set aside for tax"
+    )
 
     # Calculations
     total_income = monthly_income
