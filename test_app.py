@@ -28,11 +28,22 @@ st.markdown(
         box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
         padding: 10px 20px !important;
         font-weight: bold !important;
+        font-size: 1.05em !important;
     }
-    /* Hover effect on buttons */
+    /* Hover effect on primary buttons */
     button[kind="primary"]:hover,
     .stButton > button:hover {
         background-color: #1B5E20 !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important;
+    }
+    /* Remove button styling (small & red) */
+    .stButton > button[kind="secondary"] {
+        background-color: #c62828 !important;
+        color: white !important;
+        padding: 4px 12px !important;
+        font-size: 0.85em !important;
+        border-radius: 6px !important;
     }
     /* Sidebar styling */
     section[data-testid="stSidebar"] {
@@ -110,14 +121,15 @@ with col1:
     )
 
     st.subheader("Add Expense")
-    exp_amount = st.number_input("Expense Amount (£)", min_value=0.01, value=50.0, step=10.0)
+    exp_amount = st.number_input("Expense Amount (£)", min_value=0.01, value=50.0, step=10.0, key="exp_amount")
     exp_category = st.selectbox(
         "Category",
-        ["Travel/Mileage", "Home Office", "Equipment", "Subscriptions", "Marketing", "Other"]
+        ["Travel/Mileage", "Home Office", "Equipment", "Subscriptions", "Marketing", "Other"],
+        key="exp_category"
     )
-    exp_description = st.text_input("Description (optional)")
+    exp_description = st.text_input("Description (optional)", key="exp_desc")
 
-    if st.button("➕ Add Expense"):
+    if st.button("➕ Add Expense", type="primary"):
         if exp_amount > 0:
             st.session_state.expenses.append({
                 "Amount": exp_amount,
@@ -125,6 +137,9 @@ with col1:
                 "Description": exp_description if exp_description else "-"
             })
             st.success(f"Added £{exp_amount:.2f} - {exp_category}")
+            # Clear inputs after adding (optional UX improvement)
+            st.session_state.exp_amount = 50.0
+            st.session_state.exp_desc = ""
         else:
             st.warning("Amount must be greater than 0")
 
@@ -157,14 +172,20 @@ with col2:
         help=f"Based on {tax_rate}% of your net cash/profit after expenses (recommended for realistic cash flow)."
     )
 
-    # Expenses table
+    # Expenses table with remove buttons
     if st.session_state.expenses:
-        df = pd.DataFrame(st.session_state.expenses)
-        st.dataframe(
-            df.style.format({"Amount": "£{:,.2f}"}),
-            use_container_width=True,
-            hide_index=True
-        )
+        st.markdown("### Added Expenses")
+        for i, expense in enumerate(st.session_state.expenses):
+            cols = st.columns([4, 1, 1])
+            with cols[0]:
+                st.write(f"**£{expense['Amount']:.2f}** – {expense['Category']}")
+                if expense['Description'] != "-":
+                    st.caption(expense['Description'])
+            with cols[1]:
+                if st.button("Remove", key=f"remove_{i}", type="secondary"):
+                    st.session_state.expenses.pop(i)
+                    st.rerun()
+            st.markdown("---")  # Separator between items
     else:
         st.info("No expenses added yet. Start adding above!")
 
