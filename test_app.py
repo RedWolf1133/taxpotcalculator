@@ -37,13 +37,23 @@ st.markdown(
         transform: translateY(-1px);
         box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important;
     }
-    /* Remove button styling (small & red) */
-    .stButton > button[kind="secondary"] {
+    /* Delete (X) button styling - small, round, red */
+    .delete-btn button {
         background-color: #c62828 !important;
         color: white !important;
-        padding: 4px 12px !important;
-        font-size: 0.85em !important;
-        border-radius: 6px !important;
+        border-radius: 50% !important;
+        width: 32px !important;
+        height: 32px !important;
+        padding: 0 !important;
+        font-size: 1.2em !important;
+        line-height: 32px !important;
+        border: none !important;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important;
+        cursor: pointer !important;
+    }
+    .delete-btn button:hover {
+        background-color: #b71c1c !important;
+        transform: scale(1.1);
     }
     /* Sidebar styling */
     section[data-testid="stSidebar"] {
@@ -136,7 +146,7 @@ with col1:
                 "Description": exp_description if exp_description else "-"
             })
             st.success(f"Added £{exp_amount:.2f} - {exp_category}")
-            st.rerun()  # Re-run to refresh the page (clears inputs naturally)
+            st.rerun()  # Refresh to clear inputs naturally
         else:
             st.warning("Amount must be greater than 0")
 
@@ -169,19 +179,23 @@ with col2:
         help=f"Based on {tax_rate}% of your net cash/profit after expenses (recommended for realistic cash flow)."
     )
 
-    # Expenses table with remove buttons
+    # Expenses table with X remove buttons
     if st.session_state.expenses:
         st.markdown("### Added Expenses")
         for i, expense in enumerate(st.session_state.expenses):
-            cols = st.columns([5, 1, 1])
+            cols = st.columns([5, 1, 0.5])
             with cols[0]:
                 st.write(f"**£{expense['Amount']:.2f}** – {expense['Category']}")
                 if expense['Description'] != "-":
                     st.caption(expense['Description'])
             with cols[1]:
-                if st.button("Remove", key=f"remove_{i}", type="secondary"):
+                pass  # Spacer
+            with cols[2]:
+                st.markdown('<div class="delete-btn">', unsafe_allow_html=True)
+                if st.button("✕", key=f"remove_{i}", type="secondary"):
                     st.session_state.expenses.pop(i)
                     st.rerun()
+                st.markdown('</div>', unsafe_allow_html=True)
             st.markdown("---")  # Separator
     else:
         st.info("No expenses added yet. Start adding above!")
