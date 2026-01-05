@@ -97,13 +97,13 @@ st.markdown(
 )
 
 # ==============================================
-# HEADER & BRANDING
+# HEADER & BRANDING (Tighter spacing)
 # ==============================================
 st.markdown(
     """
-    <div style='text-align: center; padding: 30px 0 20px;'>
-        <h1 style='color: #2E7D32; margin: 0; font-size: 2.8em;'>Taxiva</h1>
-        <p style='color: #64748B; font-size: 1.3em; margin: 10px 0 0;'>
+    <div style='text-align: center; padding: 10px 0 8px;'>
+        <h1 style='color: #2E7D32; margin: 0; font-size: 2.6em;'>Taxiva</h1>
+        <p style='color: #64748B; font-size: 1.1em; margin: 6px 0 0;'>
             Easy tax set-aside tool for UK freelancers & sole traders
         </p>
     </div>
@@ -111,7 +111,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown("---")
+# Removed the extra --- line here to save vertical space
 
 # ==============================================
 # SESSION STATE
