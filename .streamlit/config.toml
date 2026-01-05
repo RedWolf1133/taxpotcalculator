@@ -1,0 +1,15 @@
+[theme]
+primaryColor = "#2E7D32"          # Deep forest green - trust & finance
+backgroundColor = "#F8FAFC"       # Very light gray-white - clean & modern
+secondaryBackgroundColor = "#E2E8F0"  # Slightly darker gray for cards/sidebar
+textColor = "#0F172A"             # Dark slate for readability
+font = "sans serif"
+
+[theme.sidebar]
+backgroundColor = "#FFFFFF"       # White sidebar for contrast
+
+[theme.dark]
+primaryColor = "#4CAF50"          # Brighter green for dark mode
+backgroundColor = "#0F172A"       # Dark slate background
+secondaryBackgroundColor = "#1E293B"
+textColor = "#E2E8F0"
