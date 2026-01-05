@@ -1,6 +1,23 @@
 import streamlit as st
 import pandas as pd
 
+st.markdown(
+    """
+    <style>
+    /* Main app background & text */
+    .stApp { background-color: #F8FAFC !important; color: #0F172A !important; }
+    /* Primary buttons & accents */
+    button[kind="primary"], .stButton > button { background-color: #2E7D32 !important; color: white !important; border-radius: 6px; }
+    /* Sidebar */
+    section[data-testid="stSidebar"] { background-color: #FFFFFF !important; }
+    /* Hide footer & menu for cleaner look */
+    footer {visibility: hidden;}
+    [data-testid="stToolbar"] {visibility: hidden;}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Set page config for nicer look
 st.set_page_config(page_title="Tax Pot Tracker MVP", layout="wide")
 
@@ -92,4 +109,5 @@ with col2:
 
 # Footer disclaimer
 st.markdown("---")
+
 st.caption("This is a basic MVP tool — estimates only. Not official financial/tax advice. Always check with HMRC or your accountant.")
