@@ -121,13 +121,12 @@ with col1:
     )
 
     st.subheader("Add Expense")
-    exp_amount = st.number_input("Expense Amount (£)", min_value=0.01, value=50.0, step=10.0, key="exp_amount")
+    exp_amount = st.number_input("Expense Amount (£)", min_value=0.01, value=50.0, step=10.0)
     exp_category = st.selectbox(
         "Category",
-        ["Travel/Mileage", "Home Office", "Equipment", "Subscriptions", "Marketing", "Other"],
-        key="exp_category"
+        ["Travel/Mileage", "Home Office", "Equipment", "Subscriptions", "Marketing", "Other"]
     )
-    exp_description = st.text_input("Description (optional)", key="exp_desc")
+    exp_description = st.text_input("Description (optional)")
 
     if st.button("➕ Add Expense", type="primary"):
         if exp_amount > 0:
@@ -137,9 +136,7 @@ with col1:
                 "Description": exp_description if exp_description else "-"
             })
             st.success(f"Added £{exp_amount:.2f} - {exp_category}")
-            # Clear inputs after adding (optional UX improvement)
-            st.session_state.exp_amount = 50.0
-            st.session_state.exp_desc = ""
+            st.rerun()  # Re-run to refresh the page (clears inputs naturally)
         else:
             st.warning("Amount must be greater than 0")
 
@@ -176,7 +173,7 @@ with col2:
     if st.session_state.expenses:
         st.markdown("### Added Expenses")
         for i, expense in enumerate(st.session_state.expenses):
-            cols = st.columns([4, 1, 1])
+            cols = st.columns([5, 1, 1])
             with cols[0]:
                 st.write(f"**£{expense['Amount']:.2f}** – {expense['Category']}")
                 if expense['Description'] != "-":
@@ -185,7 +182,7 @@ with col2:
                 if st.button("Remove", key=f"remove_{i}", type="secondary"):
                     st.session_state.expenses.pop(i)
                     st.rerun()
-            st.markdown("---")  # Separator between items
+            st.markdown("---")  # Separator
     else:
         st.info("No expenses added yet. Start adding above!")
 
